@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HistoryDataModel.Store" Provider="Npgsql" ProviderManifestToken="9.5.15" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cities">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="bpchar" MaxLength="60" />
+          <Property Name="homeurl" Type="bpchar" MaxLength="200" />
+          <Property Name="updatetime" Type="timestamp" />
+          <Property Name="starttime" Type="varchar" MaxLength="8000" />
+          <Property Name="published" Type="bool" />
+        </EntityType>
+        <EntityType Name="data">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="bpchar" MaxLength="60" />
+          <Property Name="date" Type="date" />
+          <Property Name="aqi" Type="bpchar" MaxLength="5" />
+          <Property Name="rank" Type="bpchar" MaxLength="10" />
+          <Property Name="pm2d5" Type="int4" />
+          <Property Name="pm10" Type="int4" />
+          <Property Name="so2" Type="int4" />
+          <Property Name="co" Type="float8" />
+          <Property Name="no2" Type="int4" />
+          <Property Name="o3_8" Type="int4" />
+          <Property Name="updatetime" Type="timestamp" />
+          <Property Name="range" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="publish">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="bpchar" MaxLength="60" />
+          <Property Name="datatime" Type="date" />
+          <Property Name="homeurl" Type="text" />
+          <Property Name="ispublished" Type="bool" />
+        </EntityType>
+        <EntityContainer Name="HistoryDataModelStoreContainer">
+          <EntitySet Name="cities" EntityType="Self.cities" Schema="public" store:Type="Tables" />
+          <EntitySet Name="data" EntityType="Self.data" Schema="public" store:Type="Tables" />
+          <EntitySet Name="publish" EntityType="Self.publish" Schema="public" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HistoryDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cities">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="60" FixedLength="true" Unicode="true" />
+          <Property Name="homeurl" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="updatetime" Type="DateTime" Precision="6" />
+          <Property Name="starttime" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="published" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="data">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="60" FixedLength="true" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="aqi" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="rank" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="pm2d5" Type="Int32" />
+          <Property Name="pm10" Type="Int32" />
+          <Property Name="so2" Type="Int32" />
+          <Property Name="co" Type="Double" />
+          <Property Name="no2" Type="Int32" />
+          <Property Name="o3_8" Type="Int32" />
+          <Property Name="updatetime" Type="DateTime" Precision="6" />
+          <Property Name="range" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="publish">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="60" FixedLength="true" Unicode="true" />
+          <Property Name="datatime" Type="DateTime" Precision="0" />
+          <Property Name="homeurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ispublished" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="HistoryDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cities" EntityType="Self.cities" />
+          <EntitySet Name="data" EntityType="Self.data" />
+          <EntitySet Name="publish" EntityType="Self.publish" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HistoryDataModelStoreContainer" CdmEntityContainer="HistoryDataEntities">
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="HistoryDataModel.cities">
+              <MappingFragment StoreEntitySet="cities">
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="homeurl" ColumnName="homeurl" />
+                <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="published" ColumnName="published" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="data">
+            <EntityTypeMapping TypeName="HistoryDataModel.data">
+              <MappingFragment StoreEntitySet="data">
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="aqi" ColumnName="aqi" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="pm2d5" ColumnName="pm2d5" />
+                <ScalarProperty Name="pm10" ColumnName="pm10" />
+                <ScalarProperty Name="so2" ColumnName="so2" />
+                <ScalarProperty Name="co" ColumnName="co" />
+                <ScalarProperty Name="no2" ColumnName="no2" />
+                <ScalarProperty Name="o3_8" ColumnName="o3_8" />
+                <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+                <ScalarProperty Name="range" ColumnName="range" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="publish">
+            <EntityTypeMapping TypeName="HistoryDataModel.publish">
+              <MappingFragment StoreEntitySet="publish">
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="datatime" ColumnName="datatime" />
+                <ScalarProperty Name="homeurl" ColumnName="homeurl" />
+                <ScalarProperty Name="ispublished" ColumnName="ispublished" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
